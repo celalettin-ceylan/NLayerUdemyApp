@@ -13,12 +13,20 @@ public class ProductController : CustomBaseController
 {
     private readonly IMapper _mapper;
     private readonly IService<Product> _service;
+    private readonly IProductService _productService;
 
-    public ProductController(IService<Product> service, IMapper mapper)
+    public ProductController(IService<Product> service, IMapper mapper, IProductService productService)
     {
         _service = service;
         _mapper = mapper;
+        _productService = productService;
     }
+
+    [HttpGet("GetProductsWithCategoryAsync")]
+    public async Task<IActionResult> GetProductsWithCategoryAsync() {
+        return CreateActionResult(await _productService.GetProductsWithCategoryAsync()); 
+    }
+
     [HttpGet]
     public async Task<IActionResult> All() {
         var products = await _service.GetAllAysnc();
