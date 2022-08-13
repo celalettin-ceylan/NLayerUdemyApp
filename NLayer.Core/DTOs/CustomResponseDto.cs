@@ -11,8 +11,8 @@ namespace NLayer.Core.DTOs;
 public class CustomResponseDto<T>
 {
     public T Data { get; set; }
-    [JsonIgnore]
     public List<String> Errors { get; set; }
+    [JsonIgnore]
     public int StatusCode { get; set; }
     public static CustomResponseDto<T> Success(int statusCode, T data) { 
         return new CustomResponseDto<T> { StatusCode = statusCode, Data = data, Errors = null};
